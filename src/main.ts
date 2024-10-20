@@ -5,6 +5,8 @@ import pinia from "@/stores/index";
 
 // 导入清除默认样式
 import  "@/style/reset.scss";
+// 导入tailwindcss样式
+import "@/style/tailwindcss.css";
 import App from './App.vue'
 import router from './router'
 
