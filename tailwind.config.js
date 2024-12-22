@@ -8,11 +8,8 @@ export default {
       colors: {
         'regal-blue': 'rgb(58, 200, 255)',
       },
-    }
+    },
   },
 
-  plugins: [
-
-  ]
+  plugins: [],
 }
-

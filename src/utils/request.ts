@@ -7,7 +7,7 @@ const baseURL = 'http://localhost:5173/'
 
 const instance = axios.create({
   baseURL,
-  timeout: 50000
+  timeout: 50000,
 })
 //请求拦截器
 instance.interceptors.request.use(
@@ -18,7 +18,7 @@ instance.interceptors.request.use(
     }
     return config
   },
-  (err) => Promise.reject(err)
+  (err) => Promise.reject(err),
 )
 //响应拦截器
 instance.interceptors.response.use(
@@ -27,7 +27,7 @@ instance.interceptors.response.use(
     if (res.data.code === 200) {
       return res
     }
-    console.log(res);
+    console.log(res)
     // 业务处理错误提示
     ElMessage({ message: res.data.data.message || '服务异常', type: 'error' })
     return Promise.reject(res.data)
@@ -36,14 +36,14 @@ instance.interceptors.response.use(
     // 错误提示
     ElMessage({
       message: err.response.data.data.message || '服务异常',
-      type: 'error'
+      type: 'error',
     })
     // token失效跳转登录页面
     if (err.response?.status === 401) {
       router.push('/login')
     }
     return Promise.reject(err)
-  }
+  },
 )
 
 export default instance
