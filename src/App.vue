@@ -53,5 +53,16 @@ const value = ref('555')
     <el-button type="success" @click="outhandle">退出</el-button>
     <el-button type="warning" @click="setuseinfohandle">修改用户信息</el-button>
   </div>
-  <div>"333333333333"</div>
+  <div class="oo">"333333333333"</div>
 </template>
+<style scoped lang="scss">
+.oo {
+  color: $color;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  color: red;
+}
+</style>
