@@ -9,8 +9,12 @@ import  "@/style/reset.scss";
 import "@/style/tailwindcss.css";
 import App from './App.vue'
 import router from './router'
-
+//svg插件需要配置代码
+import 'virtual:svg-icons-register';
+import globalComponent from "@/components";
+import 'element-plus/dist/index.css'
 const app = createApp(App)
+app.use(globalComponent)
 
 app.use(pinia)
 app.use(router)

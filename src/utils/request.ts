@@ -3,7 +3,7 @@ import axios from 'axios'
 import router from '@/router'
 import { ElMessage } from 'element-plus'
 
-const baseURL = 'http://xxx.net'
+const baseURL = 'http://localhost:5173/'
 
 const instance = axios.create({
   baseURL,
@@ -24,20 +24,21 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (res) => {
     //请求成功返回数据
-    if (res.data.code === 0) {
+    if (res.data.code === 200) {
       return res
     }
+    console.log(res);
     // 业务处理错误提示
-    ElMessage({ message: res.data.message || '服务异常', type: 'error' })
+    ElMessage({ message: res.data.data.message || '服务异常', type: 'error' })
     return Promise.reject(res.data)
   },
   (err) => {
     // 错误提示
     ElMessage({
-      message: err.response.data.message || '服务异常',
+      message: err.response.data.data.message || '服务异常',
       type: 'error'
     })
-    console.log(err)
+    // token失效跳转登录页面
     if (err.response?.status === 401) {
       router.push('/login')
     }
