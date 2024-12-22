@@ -9,4 +9,4 @@ export default {
   // '*.md': ['prettier --write'],
 
   // 'src/**/*.{ts,vue,js,tsx,jsx,json}': ['eslint . --fix', 'npm run lint:prettier'],
-};
+}

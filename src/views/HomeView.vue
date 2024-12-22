@@ -4,6 +4,6 @@
 
 <template>
   <main>
-    <TheWelcome />
+    <div>11112222</div>
   </main>
 </template>
