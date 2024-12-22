@@ -18,6 +18,7 @@ const getdatahandle = () => {
   })
 }
 const str = '111';
+const color = 'red';
 getdatahandle()
 const value = ref('555')
 </script>
