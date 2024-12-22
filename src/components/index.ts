@@ -6,7 +6,6 @@ export default {
   install(app: any) {
 //全局注册组件
     Object.keys(allGloablCompomponent).forEach((key) => {
-      // @ts-ignore
       app.component(key, allGloablCompomponent[key]);
     });
   },

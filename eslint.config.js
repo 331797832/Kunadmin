@@ -1,123 +1,44 @@
-// ESLint 检查 .vue 文件需要单独配置编辑器：
-// https://eslint.vuejs.org/user-guide/#editor-integrations
-module.exports = {
-  "root": true,
-  "env": {
-    "browser": true,
-    "node": true,
-    "vue/setup-compiler-macros": true
+import pluginVue from 'eslint-plugin-vue'
+import vueTsEslintConfig from '@vue/eslint-config-typescript'
+
+export default [
+  {
+    name: 'app/files-to-lint',
+    files: ['**/*.{ts,mts,tsx,vue}'],
   },
-  "globals": {
-    "wx": "readonly"
+
+  {
+    name: 'app/files-to-ignore',
+    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
   },
-  "extends": [
-    "taro/vue3",
-    "eslint:recommended",
-    "plugin:vue/recommended",
-    "plugin:vue/vue3-recommended",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": [
-    "@typescript-eslint",
-    "prettier"
-  ],
-  "parserOptions": {
-    "parser": "@typescript-eslint/parser"
+
+  ...pluginVue.configs['flat/essential'],
+  ...vueTsEslintConfig(),
+  // 允许项目使用any
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off', // 允许使用 any 类型
+      // eslint（https://eslint.bootcss.com/docs/rules/）
+    'no-var': 'error', // 要求使用 let 或 const 而不是 var
+    'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-unexpected-multiline': 'error', // 禁止空余的多行
+    'no-useless-escape': 'off', // 禁止不必要的转义字符
+
+    // typeScript (https://typescript-eslint.io/rules)
+    '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
+    '@typescript-eslint/prefer-ts-expect-error': 'error', // 禁止使用 @ts-ignore
+    '@typescript-eslint/no-explicit-any': 'off', // 禁止使用 any 类型
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
+    '@typescript-eslint/semi': 'off',
+
+    // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
+    'vue/multi-word-component-names': 'off', // 要求组件名称始终为 “-” 链接的单词
+    'vue/script-setup-uses-vars': 'error', // 防止<script setup>使用的变量<template>被标记为未使用
+    'vue/no-mutating-props': 'off', // 不允许组件 prop的改变
+    'vue/attribute-hyphenation': 'off', // 对模板中的自定义组件强制执行属性命名样式
+    },
   },
-  "rules": {
-    "semi": [
-      "error",
-      "always"
-    ], // 语句结尾不加分号
-    "no-console": "warn", // 禁止使用console
-    // "no-console": "warn",
-    "no-multi-spaces": 2, // 禁止使用多个空格
-    "no-multiple-empty-lines": [
-      2,
-      {
-        "max": 2
-      }
-    ], // 空行最多不能超过2行
-    "max-lines": [
-      "error",
-      600
-    ], //限制行数 请勿修改 请优化你的代码
-    "complexity": [
-      "error",
-      12
-    ], // 限制复杂度
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ],
-    "vue/multi-word-component-names": 0, // 关闭组件名必须是多个单词的规则
-    "vue/no-v-model-argument": "off",
-    "vue/define-macros-order": [
-      "error",
-      {
-        "order": [
-          "defineProps",
-          "defineEmits"
-        ]
-      }
-    ],
-    "vue/order-in-components": [
-      "error",
-      {
-        "order": [
-          "el",
-          "name",
-          "key",
-          "parent",
-          "functional",
-          [
-            "delimiters",
-            "comments"
-          ],
-          [
-            "components",
-            "directives",
-            "filters"
-          ],
-          "extends",
-          "mixins",
-          [
-            "provide",
-            "inject"
-          ],
-          "ROUTER_GUARDS",
-          "layout",
-          "middleware",
-          "validate",
-          "scrollToTop",
-          "transition",
-          "loading",
-          "inheritAttrs",
-          "model",
-          [
-            "props",
-            "propsData"
-          ],
-          "emits",
-          "setup",
-          "asyncData",
-          "data",
-          "fetch",
-          "head",
-          "computed",
-          "watch",
-          "watchQuery",
-          "LIFECYCLE_HOOKS",
-          "methods",
-          [
-            "template",
-            "render"
-          ],
-          "renderError"
-        ]
-      }
-    ]
-  }
-}
+]
