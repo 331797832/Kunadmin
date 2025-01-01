@@ -9,7 +9,7 @@
 import { useRouter } from "vue-router";
 const $router = useRouter();
 const goHome = () => {
-  $router.push("/login");
+  $router.push("/");
 };
 </script>
 

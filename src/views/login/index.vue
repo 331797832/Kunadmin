@@ -48,6 +48,13 @@ import { User, Lock } from "@element-plus/icons-vue";
 import { reactive, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { ElNotification } from "element-plus";
+import { getdata } from "@/api/user";
+const getdatahandle = () => {
+  getdata({ username: "admin", password: "111111" }).then((res: any) => {
+    console.log(res);
+  });
+};
+getdatahandle();
 //引入获取当前时间的函数
 import { getTime } from "@/utils/time";
 //引入用户相关的小仓库
@@ -62,42 +69,45 @@ const $route = useRoute();
 //定义变量控制按钮加载效果
 const loading = ref(false);
 //收集账号与密码的数据
-const loginForm = reactive({ username: "admin", password: "atguigu123" });
+const loginForm = reactive({ username: "admin", password: "111111" });
 //登录按钮回调
 const login = async () => {
   //保证全部表单相校验通过再发请求
   await loginForms.value.validate();
   //加载效果:开始加载
   loading.value = true;
+
   //点击登录按钮以后干什么?
   //通知仓库发登录请求
   //请求成功->首页展示数据的地方
   //请求失败->弹出登录失败信息
   try {
-    //保证登录成功
-    // await useStore.userLogin(loginForm)
-    //编程式导航跳转到展示数据首页
-    //判断登录的时候,路由路径当中是否有query参数，如果有就往query参数挑战，没有跳转到首页
-    const redirect: any = $route.query.redirect;
-    $router.push({ path: redirect || "/" });
-    //登录成功提示信息
-    ElNotification({
-      type: "success",
-      message: "欢迎回来",
-      title: `HI,${getTime()}好`,
+    getdata(loginForm).then((res: any) => {
+      console.log(res);
+      ElNotification({
+        type: "success",
+        message: "欢迎回来",
+        title: `HI,${getTime()}好`,
+      });
+      //登录成功加载效果也消失
+      loading.value = false;
+      const redirect: any = $route.query.redirect;
+      $router.push({ path: redirect || "/" });
+      //登录成功提示信息
     });
-    //登录成功加载效果也消失
-    loading.value = false;
   } catch (error) {
-    //登录失败加载效果消息
-    loading.value = false;
-    //登录失败的提示信息
+    // 登录失败提示信息
     ElNotification({
       type: "error",
       message: (error as Error).message,
     });
+    throw error; // 如果需要将错误传递给调用者可以保留此行
+  } finally {
+    // 确保加载效果消失
+    loading.value = false;
   }
 };
+
 //自定义校验规则函数
 const validatorUserName = (rule: any, value: any, callback: any) => {
   //rule:即为校验规则对象
