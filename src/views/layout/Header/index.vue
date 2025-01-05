@@ -40,7 +40,7 @@
 import { LayOutStore } from "@/stores";
 import { nextTick } from "vue";
 import userSeetting from "./userSeetting.vue";
-import "element-plus/theme-chalk/display.css";
+
 //获取layout配置相关的仓库
 const LayOutSettingStore = LayOutStore();
 //点击图标的方法

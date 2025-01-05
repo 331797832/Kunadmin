@@ -49,12 +49,6 @@ import { reactive, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { ElNotification } from "element-plus";
 import { getdata } from "@/api/user";
-const getdatahandle = () => {
-  getdata({ username: "admin", password: "111111" }).then((res: any) => {
-    console.log(res);
-  });
-};
-getdatahandle();
 //引入获取当前时间的函数
 import { getTime } from "@/utils/time";
 //引入用户相关的小仓库
