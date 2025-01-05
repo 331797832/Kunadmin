@@ -2,17 +2,28 @@
 //定义项目主题颜色
 
 //左侧的菜单的宽度
-$base-menu-width:260px;
+$base-menu-width: 200px;
 //左侧菜单的背景颜色
-$base-menu-background:#001529;
-$base-menu-min-width:50px;
+$base-menu-background: #001529;
+// $base-menu-min-width: 80px;
+// $base-menu-min-width:0px;
+:root {
+  --base-menu-min-width: 80px; // 默认值
+}
+
 
 // 顶部导航的高度
-$base-tabbar-height:50px;
+$base-tabbar-height: 50px;
 
 //左侧菜单logo高度设置
-$base-menu-logo-height:100px;
+$base-menu-logo-height: 100px;
 
 //左侧菜单logo右侧文字大小
-$base-logo-title-fontSize:30px;
-$color:blue
+$base-logo-title-fontSize: 30px;
+$color: blue;
+
+@media (max-width: 768px) {
+    :root {
+      --base-menu-min-width: 0px; // 在小屏幕上修改为 0
+    }
+  }

@@ -1,8 +1,8 @@
 <template>
   <div class="login_container">
     <el-row>
-      <el-col :span="12" :xs="0"></el-col>
-      <el-col :span="12" :xs="24">
+      <el-col :span="10" :xs="4"></el-col>
+      <el-col :span="6" :xs="20">
         <!-- 登录的表单 -->
         <el-form
           class="login_form"
@@ -11,7 +11,7 @@
           ref="loginForms"
         >
           <h1>Hello</h1>
-          <h2>欢迎来到硅谷甄选</h2>
+          <h2>欢迎来到新世界</h2>
           <el-form-item prop="username">
             <el-input
               :prefix-icon="User"
@@ -149,14 +149,14 @@ const rules = {
 </script>
 <style scoped lang="scss">
 .login_container {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background: url("@/assets/images/background.jpg") no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
 
   .login_form {
     position: relative;
-    top: 30vh;
+    top: 200px;
     width: 80%;
     padding: 40px;
     background: url("@/assets/images/login_form.png") no-repeat;
