@@ -3,10 +3,8 @@ import axios from "axios";
 import router from "@/router";
 import { ElMessage } from "element-plus";
 
-const baseURL = "http://localhost:5173/";
-
 const instance = axios.create({
-  baseURL,
+  baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 50000,
 });
 //请求拦截器
@@ -47,4 +45,3 @@ instance.interceptors.response.use(
 );
 
 export default instance;
-export { baseURL };
