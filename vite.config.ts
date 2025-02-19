@@ -25,10 +25,10 @@ export default defineConfig(({ command }) => {
     },
     plugins: [
       vue(),
-      viteMockServe({
-        // mockPath: "mock",
-        localEnabled: command === "serve",
-      }),
+      // viteMockServe({
+      //   // mockPath: "mock",
+      //   // localEnabled: command === "serve",
+      // }),
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),
