@@ -1,3 +1,59 @@
+<template>
+  <div>
+    <el-card>
+      <el-form inline class="flex justify-between">
+        <el-form-item label="用户名">
+          <el-input v-model="username" placeholder="请输入用户名"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary">搜索</el-button>
+          <el-button>重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+    <el-card class="mt-2">
+      <el-button type="primary" @click="addUser">添加</el-button>
+      <el-button type="info">批量删除</el-button>
+      <div class="mt-5">
+        <el-table
+          border
+          :data="data"
+          style="width: 100%"
+          :row-class-name="tableRowClassName"
+        >
+          <el-table-column
+            align="center"
+            v-for="column in cloumns"
+            :key="column.prop"
+            v-bind="column"
+          />
+          <el-table-column label="操作" min-width="150px">
+            <template #default="{ row }">
+              <el-button type="primary" @click="handle(row)"
+                >分配角色</el-button
+              >
+              <el-button type="info" @click="update(row)">编辑</el-button>
+              <el-button type="info">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </el-card>
+    <!-- 弹出框 -->
+    <el-drawer v-model="isvisibl" :title="title">
+      <k-form
+        :formModel="formModel"
+        :formcloumns="formcloumns"
+        :rules="rules"
+        ref="formReffff"
+      />
+      <template #footer>
+        <el-button>取消</el-button>
+        <el-button type="primary" @click="confirmClick">确认</el-button>
+      </template>
+    </el-drawer>
+  </div>
+</template>
 <script setup lang="ts">
 interface User {
   date: string;
@@ -5,7 +61,7 @@ interface User {
   address: string;
 }
 import { reguser, reqUserInfo } from "@/api/user";
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, computed } from "vue";
 const username = ref("");
 const title = ref("");
 const tableRowClassName = ({ rowIndex }: { row: User; rowIndex: number }) => {
@@ -22,8 +78,7 @@ const getuserinfo = async () => {
   data.value = res.data.data.records;
 };
 // 添加用户
-const addUser = () => {
-  console.log("新增用户");
+const addUser = async () => {
   isvisibl.value = true;
   formModel.value = {
     username: "",
@@ -70,6 +125,10 @@ interface addFormData {
   password: string;
   id?: number;
 }
+const isflag6 = computed(() => {
+  console.log("计算属性");
+  return !formModel.value.id;
+});
 const formModel = ref<addFormData>({
   username: "",
   password: "",
@@ -80,22 +139,24 @@ const formcloumns = ref([
     label: "用户姓名",
     key: "username",
     placeholder: "请输入姓名",
+    isvisibl: true,
   },
   {
     label: "用户昵称",
     key: "name",
     placeholder: "请输入昵称",
+    isvisibl: true,
   },
   {
     label: "用户密码",
     key: "password",
     placeholder: "请输入密码",
+    isvisibl: isflag6,
   },
 ]);
-const formRef = ref();
+const formReffff = ref();
 const confirmClick = async () => {
-  await formRef.value.validate();
-
+  await formReffff.value.validate();
   const res = await reguser(formModel.value);
   console.log(res);
 };
@@ -118,79 +179,3 @@ const update = (row: any) => {
   isvisibl.value = true;
 };
 </script>
-
-<template>
-  <div>
-    <el-card>
-      <el-form inline class="flex justify-between">
-        <el-form-item label="用户名">
-          <el-input v-model="username" placeholder="请输入用户名"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary">搜索</el-button>
-          <el-button>重置</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-    <el-card class="mt-2">
-      <el-button type="primary" @click="addUser">添加</el-button>
-      <el-button type="info">批量删除</el-button>
-      <div class="mt-5">
-        <el-table
-          border
-          :data="data"
-          style="width: 100%"
-          :row-class-name="tableRowClassName"
-        >
-          <el-table-column
-            align="center"
-            v-for="column in cloumns"
-            :key="column.prop"
-            v-bind="column"
-          />
-          <el-table-column label="操作" min-width="150px">
-            <template #default="{ row }">
-              <el-button type="primary" @click="handle(row)"
-                >分配角色</el-button
-              >
-              <el-button type="info" @click="update(row)">编辑</el-button>
-              <el-button type="info">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-    </el-card>
-    <el-drawer v-model="isvisibl" :title="title">
-      <el-form :model="formModel" :rules="rules" ref="formRef">
-        <template v-for="item in formcloumns" :key="item.label">
-          <el-form-item
-            :label="item.label"
-            :prop="item.key"
-            v-if="!(formModel.id && item.key == 'password')"
-          >
-            <el-input
-              v-model="formModel[item.key as keyof addFormData]"
-              :placeholder="item.placeholder"
-            />
-          </el-form-item>
-        </template>
-      </el-form>
-      <template #footer>
-        <div style="flex: auto">
-          <el-button>取消</el-button>
-          <el-button type="primary" @click="confirmClick">确认</el-button>
-        </div>
-      </template>
-    </el-drawer>
-  </div>
-</template>
-
-<style scoped>
-.el-table .warning-row {
-  --el-table-tr-bg-color: var(--el-color-warning-light-9);
-}
-
-.el-table .success-row {
-  --el-table-tr-bg-color: var(--el-color-success-light-9);
-}
-</style>

@@ -28,6 +28,7 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     KBreadcrumb: typeof import('./src/components/K-breadcrumb/index.vue')['default']
+    KForm: typeof import('./src/components/K-form/index.vue')['default']
     KSvgicon: typeof import('./src/components/K-svgicon/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
