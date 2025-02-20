@@ -48,14 +48,16 @@
 </template>
 
 <script setup lang="ts">
+import { LayOutStore } from "@/stores";
 import { useRouter } from "vue-router";
+const layoutStore = LayOutStore();
 //获取父组件传递过来的全部路由数组
 defineProps(["menuList"]);
-
 //获取路由器对象
 const $router = useRouter();
 //点击菜单的回调
 const goRoute = (vc: any) => {
+  layoutStore.setroutertabs(vc.index);
   //路由跳转
   $router.push(vc.index);
 };

@@ -3,6 +3,7 @@ import Menu from "./Menu/Menu.vue";
 import Header from "./Header/index.vue";
 import { constantRoute } from "@/router/routes";
 import { LayOutStore } from "@/stores";
+import routeTabs from "./Header/routeTabs.vue";
 //获取layout配置相关的仓库
 const LayOutSettingStore = LayOutStore();
 </script>
@@ -40,7 +41,8 @@ const LayOutSettingStore = LayOutStore();
         <el-header class="overflow-hidden k_header">
           <Header></Header>
         </el-header>
-        <el-main style="background-color: aqua">
+        <route-tabs></route-tabs>
+        <el-main style="background-color: #f6f6f6">
           <div>
             <router-view v-slot="{ Component }">
               <transition name="fade">
@@ -102,9 +104,6 @@ const LayOutSettingStore = LayOutStore();
 }
 /* 加过渡给侧边导航 */
 .el-aside {
-  transition: width 0.25s;
-  transition: width 0.25s;
-  transition: width 0.25s;
   transition: width 0.25s;
 }
 /* 加快侧边栏文字消失的速度 */
