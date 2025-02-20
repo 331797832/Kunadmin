@@ -7,6 +7,7 @@ interface User {
 import { reguser, reqUserInfo } from "@/api/user";
 import { ref, onMounted, reactive } from "vue";
 const username = ref("");
+const title = ref("");
 const tableRowClassName = ({ rowIndex }: { row: User; rowIndex: number }) => {
   if (rowIndex === 1) {
     return "warning-row";
@@ -24,6 +25,13 @@ const getuserinfo = async () => {
 const addUser = () => {
   console.log("新增用户");
   isvisibl.value = true;
+  formModel.value = {
+    username: "",
+    name: "",
+    password: "",
+    id: 0,
+  };
+  title.value = "新增用户";
 };
 onMounted(() => {
   getuserinfo();
@@ -56,7 +64,13 @@ const cloumns = ref([
   },
 ]);
 
-const formModel = ref<Record<string, string>>({
+interface addFormData {
+  username: string;
+  name: string;
+  password: string;
+  id?: number;
+}
+const formModel = ref<addFormData>({
   username: "",
   password: "",
   name: "",
@@ -80,15 +94,9 @@ const formcloumns = ref([
 ]);
 const formRef = ref();
 const confirmClick = async () => {
-  console.log(formModel.value, formcloumns.value);
   await formRef.value.validate();
-  console.log(formModel.value);
 
-  const res = await reguser({
-    username: "1314520kun6",
-    password: "6666666",
-    name: "阳光大男孩",
-  });
+  const res = await reguser(formModel.value);
   console.log(res);
 };
 const isvisibl = ref(false);
@@ -102,6 +110,12 @@ const rules = reactive({
 });
 const handle = (row: any) => {
   console.log(row);
+};
+const update = (row: any) => {
+  title.value = "编辑用户";
+  formModel.value = row;
+  console.log("编辑", row);
+  isvisibl.value = true;
 };
 </script>
 
@@ -139,19 +153,23 @@ const handle = (row: any) => {
               <el-button type="primary" @click="handle(row)"
                 >分配角色</el-button
               >
-              <el-button type="info">编辑</el-button>
+              <el-button type="info" @click="update(row)">编辑</el-button>
               <el-button type="info">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
       </div>
     </el-card>
-    <el-drawer v-model="isvisibl" title="新增用户">
+    <el-drawer v-model="isvisibl" :title="title">
       <el-form :model="formModel" :rules="rules" ref="formRef">
         <template v-for="item in formcloumns" :key="item.label">
-          <el-form-item :label="item.label" :prop="item.key">
+          <el-form-item
+            :label="item.label"
+            :prop="item.key"
+            v-if="!(formModel.id && item.key == 'password')"
+          >
             <el-input
-              v-model="formModel[item.key]"
+              v-model="formModel[item.key as keyof addFormData]"
               :placeholder="item.placeholder"
             />
           </el-form-item>
