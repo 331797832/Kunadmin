@@ -31,7 +31,10 @@
               </el-radio-group>
             </div>
           </template>
-          <div class="h-80">图表区域</div>
+          <div class="h-80 flex justify-between">
+            <div class="w-[45%] h-[100%]" ref="radarRef"></div>
+            <div class="w-[50%] h-[100%]" ref="radarRef2"></div>
+          </div>
         </el-card>
       </el-col>
       <el-col :span="8">
@@ -78,7 +81,14 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-
+import { useEcharts } from "@/hooks/echarts";
+import { barOptions, lineOptions } from "./data";
+const { domRef: radarRef } = useEcharts(() => lineOptions as any, {
+  onRender() {},
+});
+const { domRef: radarRef2 } = useEcharts(() => barOptions as any, {
+  onRender() {},
+});
 // 顶部卡片数据
 const cardList = [
   {
