@@ -66,7 +66,7 @@ const LayOutSettingStore = LayOutStore();
     height: 100vh;
     color: white;
     background: $base-menu-background;
-    transition: all 0.3ms;
+    transition: width 0.3s ease-in-out;
 
     &.fold {
       width: var(--base-menu-min-width);
@@ -78,7 +78,7 @@ const LayOutSettingStore = LayOutStore();
     left: $base-menu-width;
     width: calc(100vw - $base-menu-width);
     height: 100vh;
-    transition: all 0.3ms;
+    transition: all 0.3s ease-in-out;
 
     &.fold {
       left: var(--base-menu-min-width);
@@ -110,7 +110,7 @@ const LayOutSettingStore = LayOutStore();
 
 .el-menu {
   border-right: none;
-  transition: all 3ms;
+  transition: width 0.3s ease-in-out;
 }
 
 // 路由切换动画

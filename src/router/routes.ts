@@ -47,8 +47,26 @@ export const constantRoute = [
     //登录成功以后展示数据的路由
     path: "/",
     component: () => import("@/views/layout/index.vue"),
-    name: "layout",
+    name: "home",
     redirect: "/home",
+    children: [
+      {
+        path: "/home",
+        component: () => import("@/views/home/index.vue"),
+        meta: {
+          title: "首页", //菜单标题
+          hidden: false, //代表路由标题在菜单中是否隐藏  true:隐藏 false:不隐藏
+          icon: "House", //菜单文字左侧的图标,支持element-plus全部图标
+        },
+      },
+    ],
+  },
+  {
+    //登录成功以后展示数据的路由
+    path: "/order",
+    component: () => import("@/views/layout/index.vue"),
+    name: "order",
+    redirect: "/text",
     meta: {
       title: "订单管理",
       hidden: false,
@@ -56,20 +74,21 @@ export const constantRoute = [
     },
     children: [
       {
-        path: "/home",
-        component: () => import("@/views/mangen/index.vue"),
-        meta: {
-          title: "物料订单", //菜单标题
-          hidden: false, //代表路由标题在菜单中是否隐藏  true:隐藏 false:不隐藏
-          icon: "ChatLineRound", //菜单文字左侧的图标,支持element-plus全部图标
-        },
-      },
-      {
         path: "/text",
         component: () => import("@/views/text/index.vue"),
         name: "text",
         meta: {
           title: "采购订单",
+          hidden: false,
+          icon: "ChatDotRound",
+        },
+      },
+      {
+        path: "/mangen",
+        component: () => import("@/views/mangen/index.vue"),
+        name: "wulaioorder",
+        meta: {
+          title: "物料订单",
           hidden: false,
           icon: "ChatDotRound",
         },
