@@ -1,37 +1,33 @@
 <template>
-  <div>
-    <el-scrollbar>
-      <div class="scrollbar-flex-content">
-        <el-tabs
-          v-model="avtive"
-          type="card"
-          @tab-click="handle2"
-          @tab-remove="removeTab"
-          class="demo-tabs"
-          closable
-        >
-          <el-tab-pane
-            v-for="item in setroutertabs"
-            :key="item.path"
-            :label="item.meta.title"
-            :name="item.path"
-          >
-            <template #label>
-              <span class="custom-tabs-label">
-                <el-icon>
-                  <component :is="item.meta.icon"></component>
-                </el-icon>
-                <span>{{ item.meta.title }}</span>
-              </span>
-            </template>
-          </el-tab-pane>
-        </el-tabs>
-      </div>
-    </el-scrollbar>
+  <div class="tabs-container">
+    <el-tabs
+      v-model="avtive"
+      type="card"
+      @tab-click="handle2"
+      @tab-remove="removeTab"
+      class="route-tabs"
+      closable
+    >
+      <el-tab-pane
+        v-for="item in layoutstore.routertabs"
+        :key="item.path"
+        :label="item.meta.title"
+        :name="item.path"
+      >
+        <template #label>
+          <span class="custom-tabs-label">
+            <el-icon>
+              <component :is="item.meta.icon"></component>
+            </el-icon>
+            <span>{{ item.meta.title }}</span>
+          </span>
+        </template>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 <script setup lang="ts" name="routeTabs">
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { LayOutStore } from "@/stores";
 const layoutstore = LayOutStore();
@@ -41,9 +37,6 @@ const $route = useRoute();
 const avtive = ref("");
 console.log("路由", useRoute());
 // 去重
-const setroutertabs = computed(() => {
-  return Array.from(new Set(layoutstore.routertabs));
-});
 const handle2 = (tab: any) => {
   layoutstore.setroutertabs(tab.name);
   $router.push(tab.props.name);
@@ -56,7 +49,7 @@ watch(
   () => $route.path,
   (newPath) => {
     console.log("newPath", newPath);
-
+    layoutstore.setroutertabs(newPath);
     avtive.value = newPath;
   },
   {
@@ -65,29 +58,36 @@ watch(
 );
 </script>
 <style scoped>
-.scrollbar-flex-content {
-  display: flex;
-  margin-top: 2px;
+.tabs-container {
+  position: relative;
+  width: 100%;
 }
 
-.scrollbar-demo-item {
+.route-tabs {
+  width: 100%;
+}
+
+/* 调整标签样式 */
+.custom-tabs-label {
   display: flex;
-  flex-shrink: 0;
+  gap: 4px;
+  align-items: center;
+}
+
+:deep(.el-tabs__nav-wrap) {
+  padding: 0 40px; /* 为左右箭头留出空间 */
+}
+
+:deep(.el-tabs__nav-wrap.is-scrollable) {
+  padding: 0 40px;
+}
+
+:deep(.el-tabs__nav-prev),
+:deep(.el-tabs__nav-next) {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 50px;
-  margin: 10px;
-  color: var(--el-color-danger);
-  text-align: center;
-  background: var(--el-color-danger-light-9);
-  border-radius: 4px;
-}
-
-.demo-tabs > .el-tabs__content {
-  padding: 32px;
-  font-size: 32px;
-  font-weight: 600;
-  color: #6b778c;
+  width: 30px;
+  height: 100%;
 }
 </style>

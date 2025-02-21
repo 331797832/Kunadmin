@@ -50,7 +50,7 @@ export const constantRoute = [
     name: "layout",
     redirect: "/home",
     meta: {
-      title: "布局",
+      title: "订单管理",
       hidden: false,
       icon: "FullScreen",
     },
@@ -59,7 +59,7 @@ export const constantRoute = [
         path: "/home",
         component: () => import("@/views/mangen/index.vue"),
         meta: {
-          title: "登录1", //菜单标题
+          title: "物料订单", //菜单标题
           hidden: false, //代表路由标题在菜单中是否隐藏  true:隐藏 false:不隐藏
           icon: "ChatLineRound", //菜单文字左侧的图标,支持element-plus全部图标
         },
@@ -69,7 +69,7 @@ export const constantRoute = [
         component: () => import("@/views/text/index.vue"),
         name: "text",
         meta: {
-          title: "文本",
+          title: "采购订单",
           hidden: false,
           icon: "ChatDotRound",
         },
@@ -82,7 +82,7 @@ export const constantRoute = [
     name: "Acl",
     redirect: "/acl/user",
     meta: {
-      title: "管理",
+      title: "权限管理",
       icon: "User",
       hidden: false,
     },
@@ -101,7 +101,7 @@ export const constantRoute = [
         path: "/test",
         component: () => import("@/views/article/index.vue"),
         meta: {
-          title: "登录2", //菜单标题
+          title: "路由菜单", //菜单标题
           hidden: false, //代表路由标题在菜单中是否隐藏  true:隐藏 false:不隐藏
           icon: "CirclePlus", //菜单文字左侧的图标,支持element-plus全部图标
         },
