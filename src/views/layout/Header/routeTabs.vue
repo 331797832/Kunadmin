@@ -2,28 +2,17 @@
   <div>
     <el-scrollbar>
       <div class="scrollbar-flex-content">
-        <p
-          v-for="item in setroutertabs"
-          :key="item"
-          @click="handle(item)"
-          class="scrollbar-demo-item"
-        >
-          <el-icon>
-            <component :is="item.meta.icon"></component>
-          </el-icon>
-          {{ item.meta.title }}
-        </p>
         <el-tabs
-          v-model="str"
+          v-model="avtive"
           type="card"
           @tab-click="handle2"
+          @tab-remove="removeTab"
           class="demo-tabs"
           closable
         >
           <el-tab-pane
             v-for="item in setroutertabs"
             :key="item.path"
-            @click="handle(item)"
             :label="item.meta.title"
             :name="item.path"
           >
@@ -42,64 +31,43 @@
   </div>
 </template>
 <script setup lang="ts" name="routeTabs">
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { LayOutStore } from "@/stores";
-// import type { TabPaneName } from "element-plus";
 const layoutstore = LayOutStore();
 
-// <p
-//           v-for="item in setroutertabs"
-//           :key="item"
-//           @click="handle(item)"
-//           class="scrollbar-demo-item"
-//         >
-//           <el-icon>
-//             <component :is="item.meta.icon"></component>
-//           </el-icon>
-//           {{ item.meta.title }}
-//         </p>
 const $router = useRouter();
-const str = ref(useRoute().fullPath);
-console.log(useRoute());
-
+const $route = useRoute();
+const avtive = ref("");
+console.log("路由", useRoute());
 // 去重
 const setroutertabs = computed(() => {
-  return layoutstore.routertabs;
+  return Array.from(new Set(layoutstore.routertabs));
 });
-const handle = (item: any) => {
-  console.log("你好");
-
-  $router.push(item.path);
-};
 const handle2 = (tab: any) => {
   layoutstore.setroutertabs(tab.name);
   $router.push(tab.props.name);
 };
-// const molvalue = computed(() => {
-//   return useRoute().fullPath;
-// });
-// const removeTab = (targetName: TabPaneName) => {
-//   //   layoutstore.routertabs = layoutstore.routertabs.filter(
-//   //     (tab: any) => tab.name !== targetName,
-//   //   );
-//   //   if (str === targetName) {
-//   //     layoutstore.routertabs.forEach((tab: any, index: number) => {
-//   //       if (tab.name === targetName) {
-//   //         const nextTab =
-//   //           layoutstore.routertabs[index + 1] ||
-//   //           layoutstore.routertabs[index - 1];
-//   //         if (nextTab) {
-//   //           str = nextTab.name;
-//   //         }
-//   //       }
-//   //     });
-//   //   }
-// };
+const removeTab = (tab: any) => {
+  console.log(tab);
+  layoutstore.romoveroutertabs(tab);
+};
+watch(
+  () => $route.path,
+  (newPath) => {
+    console.log("newPath", newPath);
+
+    avtive.value = newPath;
+  },
+  {
+    immediate: true,
+  },
+);
 </script>
 <style scoped>
 .scrollbar-flex-content {
   display: flex;
+  margin-top: 2px;
 }
 
 .scrollbar-demo-item {

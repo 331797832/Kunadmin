@@ -20,7 +20,8 @@ export const LayOutStore = defineStore("useLayOutSettingStore", () => {
     traverse(constantRoute);
   };
   const romoveroutertabs = (val: any) => {
-    console.log(val);
+    // 过滤
+    routertabs.value = routertabs.value.filter((item) => item.path !== val);
   };
   return {
     fold,
