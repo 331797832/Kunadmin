@@ -52,6 +52,18 @@
         <el-button type="primary" @click="confirmClick">确认</el-button>
       </template>
     </el-drawer>
+    <el-drawer v-model="isvisibl2" :title="'分配角色'">
+      <k-form
+        :formModel="formcloumns2"
+        :formcloumns="formcloumns"
+        :rules="rules"
+        ref="formReffff"
+      />
+      <template #footer>
+        <el-button>取消</el-button>
+        <el-button type="primary" @click="confirmClick">确认</el-button>
+      </template>
+    </el-drawer>
   </div>
 </template>
 <script setup lang="ts">
@@ -60,10 +72,11 @@ interface User {
   name: string;
   address: string;
 }
-import { reguser, reqUserInfo } from "@/api/user";
+import { reguser, reqUserInfo, updatareguser } from "@/api/user";
 import { ref, onMounted, reactive, computed } from "vue";
 const username = ref("");
 const title = ref("");
+const isvisibl2 = ref(false);
 const tableRowClassName = ({ rowIndex }: { row: User; rowIndex: number }) => {
   if (rowIndex === 1) {
     return "warning-row";
@@ -134,6 +147,14 @@ const formModel = ref<addFormData>({
   password: "",
   name: "",
 });
+const formcloumns2 = ref([
+  {
+    label: "用户姓名",
+    key: "username",
+    placeholder: "请输入姓名",
+    isvisibl: true,
+  },
+]);
 const formcloumns = ref([
   {
     label: "用户姓名",
@@ -157,25 +178,29 @@ const formcloumns = ref([
 const formReffff = ref();
 const confirmClick = async () => {
   await formReffff.value.validate();
+  console.log(formModel.value);
+  if (formModel.value.id) {
+    const { name, password, id, username } = formModel.value;
+    await updatareguser({ id, name, username, password });
+    return;
+  }
+
   const res = await reguser(formModel.value);
   console.log(res);
 };
 const isvisibl = ref(false);
 const rules = reactive({
-  name: [
-    { required: true, message: "请输入昵称", trigger: "blur" },
-    { min: 3, max: 5, message: "长度限制 3 to 5", trigger: "blur" },
-  ],
+  name: [{ required: true, message: "请输入昵称", trigger: "blur" }],
   username: [{ required: true, message: "请输入用户名称", trigger: "blur" }],
   password: [{ required: true, message: "请输入用户密码", trigger: "blur" }],
 });
 const handle = (row: any) => {
   console.log(row);
+  isvisibl2.value = true;
 };
 const update = (row: any) => {
   title.value = "编辑用户";
   formModel.value = row;
-  console.log("编辑", row);
   isvisibl.value = true;
 };
 </script>

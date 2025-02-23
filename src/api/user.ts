@@ -26,3 +26,6 @@ export const userlogin = (data: loginFormData) => {
 export const reguser = (data: addFormData) => {
   return request.post("/admin/acl/user/save", data);
 };
+export const updatareguser = (data: addFormData) => {
+  return request.put("/admin/acl/user/save", data);
+};

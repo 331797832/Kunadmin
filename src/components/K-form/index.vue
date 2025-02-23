@@ -2,7 +2,11 @@
   <div>
     <el-form :model="formModel" :rules="rules" ref="formrefdom">
       <template v-for="item in formcloumns" :key="item.label">
-        <el-form-item :label="item.label" :prop="item.key" v-if="item.isvisibl">
+        <el-form-item
+          :label="item.label"
+          :prop="item.key"
+          v-if="item.isvisibl || true"
+        >
           <el-input
             v-model="formModel[item.key as keyof Column]"
             :placeholder="item.placeholder"
@@ -14,6 +18,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import { ElInput } from "element-plus";
 const formrefdom = ref();
 interface Column {
   label: string;
