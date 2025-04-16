@@ -5,7 +5,7 @@
       <el-menu-item
         :index="item.path"
         v-if="!item.meta.hidden"
-        @click="goRoute"
+        @click="goRoute(item.path)"
       >
         <el-icon>
           <component :is="item.meta.icon"></component>
@@ -20,7 +20,7 @@
       <el-menu-item
         :index="item.children[0].path"
         v-if="!item.children[0].meta.hidden"
-        @click="goRoute"
+        @click="goRoute(item.path)"
       >
         <!-- 需要做个判断 -->
         <el-icon>
@@ -56,10 +56,10 @@ defineProps(["menuList"]);
 //获取路由器对象
 const $router = useRouter();
 //点击菜单的回调
-const goRoute = (vc: any) => {
-  layoutStore.setroutertabs(vc.index);
+const goRoute = (path: any) => {
+  layoutStore.setroutertabs(path);
   //路由跳转
-  $router.push(vc.index);
+  $router.push(path);
 };
 </script>
 <!-- 必须添加命名实现递归 -->

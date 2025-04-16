@@ -45,10 +45,15 @@ export const constantRoute = [
   },
   {
     //登录成功以后展示数据的路由
-    path: "/",
+    path: "/home",
     component: () => import("@/views/layout/index.vue"),
-    name: "home",
-    redirect: "/home",
+
+    meta: {
+      title: "首页", //菜单标题
+      hidden: false, //代表路由标题在菜单中是否隐藏  true:隐藏 false:不隐藏
+      icon: "House", //菜单文字左侧的图标,支持element-plus全部图标
+    },
+
     children: [
       {
         path: "/home",

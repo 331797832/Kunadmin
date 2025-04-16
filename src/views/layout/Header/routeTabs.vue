@@ -35,7 +35,6 @@ const layoutstore = LayOutStore();
 const $router = useRouter();
 const $route = useRoute();
 const avtive = ref("");
-console.log("路由", useRoute());
 // 去重
 const handle2 = (tab: any) => {
   layoutstore.setroutertabs(tab.name);
@@ -48,7 +47,6 @@ const removeTab = (tab: any) => {
 watch(
   () => $route.path,
   (newPath) => {
-    console.log("newPath", newPath);
     layoutstore.setroutertabs(newPath);
     avtive.value = newPath;
   },
