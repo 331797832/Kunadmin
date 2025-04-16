@@ -124,18 +124,21 @@ const LayOutSettingStore = LayOutStore();
 }
 
 // 路由切换动画
-
 /* 插入的新元素初始的样式 */
-.fade-enter-from,
-.fade-leave-to {
+.fade-enter-from {
   opacity: 0;
   transform: translateX(20px);
 }
-/* 插入的新元素的过渡样式 */
+
 .fade-enter-active,
 .fade-leave-active {
   transition:
     opacity 0.3s,
     transform 0.3s;
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
 }
 </style>

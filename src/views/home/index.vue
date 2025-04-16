@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div>
     <!-- 顶部数据卡片 -->
     <el-row :gutter="20">
       <el-col :span="6" v-for="item in cardList" :key="item.title">
@@ -143,10 +143,6 @@ const tableData = [
 </script>
 
 <style scoped>
-.home-container {
-  padding: 20px;
-}
-
 .data-card {
   .card-header {
     display: flex;

@@ -41,22 +41,10 @@
     </el-card>
     <!-- 弹出框 -->
     <el-drawer v-model="isvisibl" :title="title">
-      <k-form
-        :formModel="formModel"
-        :formcloumns="formcloumns"
-        :rules="rules"
-        ref="formReffff"
-      />
-      <template #footer>
-        <el-button>取消</el-button>
-        <el-button type="primary" @click="confirmClick">确认</el-button>
-      </template>
-    </el-drawer>
-    <el-drawer v-model="isvisibl2" :title="'分配角色'">
-      <k-form
-        :formModel="formcloumns2"
-        :formcloumns="formcloumns"
-        :rules="rules"
+      <KFormPlus
+        :formData="formModel"
+        :formColumns="formcloumns"
+        :formRules="rules"
         ref="formReffff"
       />
       <template #footer>
@@ -138,41 +126,51 @@ interface addFormData {
   password: string;
   id?: number;
 }
-const isflag6 = computed(() => {
-  console.log("计算属性");
-  return !formModel.value.id;
-});
+
 const formModel = ref<addFormData>({
   username: "",
   password: "",
   name: "",
 });
-const formcloumns2 = ref([
+const isflag6 = computed(() => {
+  console.log("计算属性");
+  return formModel.value.id ? true : false;
+});
+// const formcloumns2 = ref([
+//   {
+//     label: "用户姓名",
+//     key: "username",
+//     placeholder: "请输入姓名",
+//     hidden: true,
+//   },
+// ]);
+const formcloumns = computed(() => [
   {
     label: "用户姓名",
-    key: "username",
+    prop: "username",
+    xType: "Input",
     placeholder: "请输入姓名",
-    isvisibl: true,
-  },
-]);
-const formcloumns = ref([
-  {
-    label: "用户姓名",
-    key: "username",
-    placeholder: "请输入姓名",
-    isvisibl: true,
+    componentProps: {
+      placeholder: "请输入密码",
+    },
   },
   {
     label: "用户昵称",
-    key: "name",
+    prop: "name",
+    xType: "Input",
     placeholder: "请输入昵称",
-    isvisibl: true,
+    componentProps: {
+      placeholder: "请输入密码",
+    },
   },
   {
     label: "用户密码",
-    key: "password",
-    placeholder: "请输入密码",
-    isvisibl: isflag6,
+    prop: "password",
+    xType: "Input",
+    hidden: isflag6.value,
+    componentProps: {
+      placeholder: "请输入密码",
+    },
   },
 ]);
 const formReffff = ref();
