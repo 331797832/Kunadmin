@@ -35,7 +35,7 @@
         <el-main style="background-color: #f6f6f6">
           <div>
             <router-view v-slot="{ Component, route }">
-              <transition name="fade">
+              <transition name="fade" mode="out-in">
                 <keep-alive>
                   <component
                     :is="Component"
@@ -126,18 +126,16 @@ const LayOutSettingStore = LayOutStore();
 // 路由切换动画
 
 /* 插入的新元素初始的样式 */
-.fade-enter-from {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
   transform: translateX(20px);
 }
-
-.fade-enter-active {
-  transition: all 1s;
-}
-
-.fade-enter-to {
-  opacity: 1;
-
-  // transform: scale(1);
+/* 插入的新元素的过渡样式 */
+.fade-enter-active,
+.fade-leave-active {
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 }
 </style>
