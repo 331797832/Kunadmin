@@ -1,13 +1,3 @@
-<script setup lang="ts" name="layout">
-import Menu from "./Menu/Menu.vue";
-import Header from "./Header/index.vue";
-import { constantRoute } from "@/router/routes";
-import { LayOutStore } from "@/stores";
-import routeTabs from "./Header/routeTabs.vue";
-//获取layout配置相关的仓库
-const LayOutSettingStore = LayOutStore();
-</script>
-
 <template>
   <div class="commonlayout">
     <el-container class="h-screen">
@@ -18,9 +8,9 @@ const LayOutSettingStore = LayOutStore();
       >
         <!-- logo图标 -->
         <div class="logo" v-if="!LayOutSettingStore.fold">
-          <h1>新世界</h1>
+          <svg-icon name="logo" style="width: 60%; height: 100px" />
         </div>
-        <div v-else class="logo">新</div>
+        <div v-else class="logo">原</div>
         <!-- 侧边菜单栏 -->
         <el-menu
           :default-active="$route.path"
@@ -44,9 +34,15 @@ const LayOutSettingStore = LayOutStore();
         <route-tabs></route-tabs>
         <el-main style="background-color: #f6f6f6">
           <div>
-            <router-view v-slot="{ Component }">
+            <router-view v-slot="{ Component, route }">
               <transition name="fade">
-                <component :is="Component" v-if="LayOutSettingStore.isrefash" />
+                <keep-alive>
+                  <component
+                    :is="Component"
+                    :key="route.path"
+                    v-if="LayOutSettingStore.isrefash"
+                  />
+                </keep-alive>
               </transition>
             </router-view>
           </div>
@@ -55,6 +51,16 @@ const LayOutSettingStore = LayOutStore();
     </el-container>
   </div>
 </template>
+
+<script setup lang="ts" name="layout">
+import Menu from "./Menu/Menu.vue";
+import Header from "./Header/index.vue";
+import { constantRoute } from "@/router/routes";
+import { LayOutStore } from "@/stores";
+import routeTabs from "./Header/routeTabs.vue";
+//获取layout配置相关的仓库
+const LayOutSettingStore = LayOutStore();
+</script>
 
 <style lang="scss" scoped>
 .commonlayout {
@@ -76,6 +82,8 @@ const LayOutSettingStore = LayOutStore();
   .left-container {
     position: absolute;
     left: $base-menu-width;
+    /* stylelint-disable declaration-property-value-no-unknown */
+
     width: calc(100vw - $base-menu-width);
     height: 100vh;
     transition: all 0.3s ease-in-out;
@@ -93,13 +101,15 @@ const LayOutSettingStore = LayOutStore();
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: $base-menu-logo-height;
   overflow: hidden;
   font-size: $base-logo-title-fontSize;
   line-height: $base-menu-logo-height;
   color: white;
-  text-align: center;
   background-color: #000;
 }
 /* 加过渡给侧边导航 */

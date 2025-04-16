@@ -1,36 +1,3 @@
-export const constantRoutes = [
-  {
-    path: "/",
-    name: "login",
-    component: () => import("../views/login/index.vue"),
-  },
-  {
-    path: "/home",
-    name: "layout",
-    component: () => import("../views/layout/index.vue"),
-    children: [
-      {
-        path: "home/channel",
-        component: () => import("@/views/article/index.vue"),
-      },
-    ],
-  },
-  {
-    path: "/404",
-    name: "404",
-    component: () => import("../views/404/index.vue"),
-  },
-  {
-    path: "/403",
-    name: "403",
-    component: () => import("@/views/403/index.vue"),
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "Any",
-    redirect: "/404",
-  },
-];
 export const constantRoute = [
   {
     //登录
@@ -45,7 +12,7 @@ export const constantRoute = [
   },
   {
     //登录成功以后展示数据的路由
-    path: "/home",
+    path: "/home2",
     component: () => import("@/views/layout/index.vue"),
 
     meta: {
