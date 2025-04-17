@@ -32,7 +32,7 @@
             </div>
           </template>
           <div class="h-[100%] w-[100%]">
-            <div style="height: 340px" ref="radarRef"></div>
+            <div style=" width: 100%;height: 340px" ref="radarRef"></div>
           </div>
         </el-card>
       </el-col>

@@ -38,6 +38,7 @@ import type {
 import { LabelLayout, UniversalTransition } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { useElementSize } from "@vueuse/core";
+import { debounce } from "@/utils/debounce";
 
 export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
@@ -173,19 +174,13 @@ export function useEcharts<T extends ECOption>(
     chart = null;
   }
 
-  /** change chart theme */
-  // async function changeTheme() {
-  //   await destroy();
-  //   await render();
-  //   await onUpdated?.(chart!);
-  // }
-
   /**
    * render chart by size
    *
    * @param w width
    * @param h height
    */
+  const debouncedRender = debounce(resize, 500);
   async function renderChartBySize(w: number, h: number) {
     initialSize.width = w;
     initialSize.height = h;
@@ -199,7 +194,7 @@ export function useEcharts<T extends ECOption>(
 
     // resize chart
     if (isRendered()) {
-      resize();
+      debouncedRender();
     }
 
     // render chart
@@ -208,12 +203,8 @@ export function useEcharts<T extends ECOption>(
 
   scope.run(() => {
     watch([width, height], ([newWidth, newHeight]) => {
-      renderChartBySize(newWidth as any, newHeight as any);
+      renderChartBySize(newWidth, newHeight);
     });
-
-    // watch(darkMode, () => {
-    //   changeTheme();
-    // });
   });
 
   onScopeDispose(() => {

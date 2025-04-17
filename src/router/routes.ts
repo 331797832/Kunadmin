@@ -1,5 +1,13 @@
 export const constantRoute = [
   {
+    path: "/",
+    redirect: "/login",
+    meta: {
+      hidden: true, //代表路由标题在菜单中是否隐藏  true:隐藏 false:不隐藏
+      icon: "FullScreen", //菜单文字左侧的图标,支持element-plus全部图标
+    },
+  },
+  {
     //登录
     path: "/login",
     component: () => import("@/views/login/index.vue"),
