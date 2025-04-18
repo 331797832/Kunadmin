@@ -50,11 +50,13 @@
 <script setup lang="ts">
 import { LayOutStore } from "@/stores";
 import { useRouter } from "vue-router";
+import type { MenuProps } from "./type";
 const layoutStore = LayOutStore();
+
 //获取父组件传递过来的全部路由数组
 defineProps({
   menuList: {
-    type: Array,
+    type: Array as PropType<MenuProps[]>,
     default: () => [],
   },
 });

@@ -9,8 +9,9 @@
       closable
     >
       <el-tab-pane
-        v-for="item in layoutstore.routertabs"
+        v-for="item in layoutStore.routertabs"
         :key="item.path"
+        lazy
         :label="item.meta.title"
         :name="item.path"
       >
@@ -30,24 +31,23 @@
 import { ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { LayOutStore } from "@/stores";
-const layoutstore = LayOutStore();
+const layoutStore: any = LayOutStore();
 
 const $router = useRouter();
 const $route = useRoute();
 const avtive = ref("");
 // 去重
 const handle2 = (tab: any) => {
-  layoutstore.setroutertabs(tab.name);
+  layoutStore.setroutertabs(tab.name);
   $router.push(tab.props.name);
 };
 const removeTab = (tab: any) => {
-  console.log(tab);
-  layoutstore.romoveroutertabs(tab);
+  layoutStore.romoveroutertabs(tab);
 };
 watch(
   () => $route.path,
   (newPath) => {
-    layoutstore.setroutertabs(newPath);
+    layoutStore.setroutertabs(newPath);
     avtive.value = newPath;
   },
   {

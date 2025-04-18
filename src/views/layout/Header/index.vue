@@ -20,7 +20,7 @@
             icon="Refresh"
             @click="refreshHandle"
           ></el-button>
-          <el-switch v-model="str" @click="handle">黑色</el-switch>
+          <el-switch v-model="dark" @click="toggleDark(dark)">黑色</el-switch>
           <el-button
             type="link"
             circle
@@ -41,7 +41,8 @@
 import { LayOutStore } from "@/stores";
 import { nextTick, ref } from "vue";
 import userSeetting from "./userSeetting.vue";
-const str = ref(false);
+import { fullScreen, toggleDark } from "@/utils/fullScreen";
+const dark = ref(false);
 //获取layout配置相关的仓库
 const LayOutSettingStore = LayOutStore();
 //点击图标的方法
@@ -49,16 +50,7 @@ const changeIcon = () => {
   //图标进行切换
   LayOutSettingStore.fold = !LayOutSettingStore.fold;
 };
-const handle = () => {
-  //body加个dark类名
-  if (str.value) {
-    document.body.classList.add("dark");
-    document.documentElement.classList.add("dark");
-  } else {
-    document.body.classList.remove("dark");
-    document.documentElement.classList.remove("dark");
-  }
-};
+
 // 刷新页面
 const refreshHandle = () => {
   console.log("刷新页面");
@@ -68,19 +60,6 @@ const refreshHandle = () => {
     LayOutSettingStore.isrefash = !LayOutSettingStore.isrefash;
   });
   // });
-};
-//全屏按钮点击的回调
-const fullScreen = () => {
-  //DOM对象的一个属性:可以用来判断当前是不是全屏模式[全屏:true,不是全屏:false]
-  const full = document.fullscreenElement;
-  //切换为全屏模式
-  if (!full) {
-    //文档根节点的方法requestFullscreen,实现全屏模式
-    document.documentElement.requestFullscreen();
-  } else {
-    //变为不是全屏模式->退出全屏模式
-    document.exitFullscreen();
-  }
 };
 </script>
 <style lang="scss" scoped>
