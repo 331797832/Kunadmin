@@ -1,9 +1,11 @@
 //项目提供scss全局变量
 //定义项目主题颜色
 
+// 设置默认主题色
 :root {
   --base-menu-min-width: 80px;
   --el-color-primary-light-5: green !important;
+  --route-view-background-color: #fff !important; //二级路由出口背景颜色
   --el-color-primary-light-3: rgb(2, 173, 2) !important;
   --el-color-primary-dark-2: green !important;
   --base-menu-background: #fff !important;
@@ -13,15 +15,17 @@
   --el-menu-text-color: #000 !important; //侧边栏文字颜色
 }
 
+//暗黑主题
 body.dark {
-  --el-color-primary: rgb(60, 59, 59) !important;
-  --el-color-primary-light-5: rgba(0, 0, 255, 0.8) !important;
-  --el-color-primary-light-3: rgba(0, 0, 255, 0.6) !important;
-  --el-color-primary-dark-2: darkblue !important;
-  --el-menu-text-color: #eee !important;
+  --el-color-primary-light-5: rgb(145, 145, 145) !important;
+  --el-color-primary: gray !important;
+  --el-color-primary-light-3: rgb(150, 150, 150) !important;
+  --route-view-background-color: #000 !important;
+  --el-color-primary-dark-2: rgb(175, 175, 175) !important;
+  --el-menu-text-color: #fff !important;
   --base-menu-background: #000 !important;
   --el-menu-bg-color: black !important;
-  --el-menu-active-color: rgb(68, 67, 67) !important;
+  --el-menu-active-color: var(--el-color-primary) !important;
 }
 
 //左侧的菜单的宽度
@@ -30,8 +34,6 @@ $base-menu-width: 200px;
 $base-menu-background: #000;
 // $base-menu-min-width: 80px;
 // $base-menu-min-width:0px;
-
-
 
 // 顶部导航的高度
 $base-tabbar-height: 50px;

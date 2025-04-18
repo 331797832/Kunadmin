@@ -2,8 +2,6 @@
   <el-menu
     class="items-center el-menu-demo"
     mode="horizontal"
-    background-color="#fff"
-    text-color="#000"
     :collapse-transition="true"
     :ellipsis="false"
     router

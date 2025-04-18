@@ -31,7 +31,7 @@
           <Header></Header>
         </el-header>
         <route-tabs></route-tabs>
-        <el-main style="background-color: #f6f6f6">
+        <el-main class="routeview-bg">
           <div>
             <router-view v-slot="{ Component, route }">
               <transition name="fade" mode="out-in">
@@ -89,10 +89,14 @@ const LayOutSettingStore = LayOutStore();
       width: var(--base-menu-min-width);
     }
 
-    .aside-menu {
-      width: 100%;
+    routeview-bg {
       /* stylelint-disable declaration-property-value-no-unknown */
 
+      background-color: var(--route-view-background-color);
+    }
+
+    .aside-menu {
+      width: 100%;
       height: calc(100% - $base-menu-logo-height);
     }
   }

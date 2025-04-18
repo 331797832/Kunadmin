@@ -53,8 +53,10 @@ const handle = () => {
   //body加个dark类名
   if (str.value) {
     document.body.classList.add("dark");
+    document.documentElement.classList.add("dark");
   } else {
     document.body.classList.remove("dark");
+    document.documentElement.classList.remove("dark");
   }
 };
 // 刷新页面
