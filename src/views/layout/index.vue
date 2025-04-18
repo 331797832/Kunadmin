@@ -8,9 +8,9 @@
       >
         <!-- logo图标 -->
         <div class="logo" v-if="!LayOutSettingStore.fold">
-          <svg-icon name="logo" style="width: 60%; height: 100px" />
+          <svg-icon name="element" style="width: 40%; height: 100px" />
         </div>
-        <div v-else class="logo">原</div>
+        <div v-else class="logo">E</div>
         <!-- 侧边菜单栏 -->
         <el-menu
           class="aside-menu"
@@ -71,6 +71,10 @@ const LayOutSettingStore = LayOutStore();
     height: 100vh;
     color: white;
     background: var(--base-menu-background);
+
+    // 添加右边阴影
+
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
     transition: width 0.3s ease-in-out;
 
     .logo {
@@ -82,7 +86,7 @@ const LayOutSettingStore = LayOutStore();
       overflow: hidden;
       font-size: $base-logo-title-fontSize;
       line-height: $base-menu-logo-height;
-      color: white;
+      color: var(--el-menu-text-color);
     }
 
     &.fold {

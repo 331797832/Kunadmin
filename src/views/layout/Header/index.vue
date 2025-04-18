@@ -2,7 +2,7 @@
   <div>
     <el-row style="overflow: hidden">
       <el-col :span="16" :xs="15" class="flex items-center">
-        <el-icon size="40" class="text-[#000] pl-3" @click="changeIcon">
+        <el-icon size="40" class="togglea-aside" @click="changeIcon">
           <component
             :is="LayOutSettingStore.fold ? 'Fold' : 'Expand'"
           ></component>
@@ -92,6 +92,11 @@ const fullScreen = () => {
 
 .el-menu--horizontal > .el-menu-item:nth-child(1) {
   margin-right: auto;
+}
+
+.togglea-aside {
+  padding-left: 10px;
+  color: var(--el-menu-text-color);
 }
 
 .name {
