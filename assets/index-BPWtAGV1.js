@@ -1,0 +1,1 @@
+import"./base-DV-mR6bN.js";import{E as o}from"./el-card-DJQBBSyd.js";import{_ as l,k as a,b as s,m as d,w as t,f as n}from"./index-CiEkrH3G.js";const i={};function c(f,e){const r=o;return s(),a("div",null,[d(r,null,{header:t(()=>e[0]||(e[0]=[n("div",null,"666",-1)])),default:t(()=>[e[1]||(e[1]=n("div",null,null,-1))]),_:1})])}const p=l(i,[["render",c]]);export{p as default};
