@@ -124,15 +124,11 @@ const LayOutSettingStore = LayOutStore();
   padding: 0;
 }
 
-/* 加过渡给侧边导航 */
-.el-aside {
-  transition: width 0.25s;
-}
 /* 加快侧边栏文字消失的速度 */
 
 .el-menu {
   border-right: none;
-  transition: width 0.3s ease-in-out;
+  transition: width 0.5ms;
 }
 
 // 路由切换动画
