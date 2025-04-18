@@ -13,9 +13,8 @@
         <div v-else class="logo">原</div>
         <!-- 侧边菜单栏 -->
         <el-menu
+          class="aside-menu"
           :default-active="$route.path"
-          background-color="#001529"
-          text-color="white"
           :show-timeout="20"
           :class="{ fold: LayOutSettingStore.fold }"
           :collapse="LayOutSettingStore.fold"
@@ -71,19 +70,36 @@ const LayOutSettingStore = LayOutStore();
     width: $base-menu-width;
     height: 100vh;
     color: white;
-    background: $base-menu-background;
+    background: var(--base-menu-background);
     transition: width 0.3s ease-in-out;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: $base-menu-logo-height;
+      overflow: hidden;
+      font-size: $base-logo-title-fontSize;
+      line-height: $base-menu-logo-height;
+      color: white;
+    }
 
     &.fold {
       width: var(--base-menu-min-width);
+    }
+
+    .aside-menu {
+      width: 100%;
+      /* stylelint-disable declaration-property-value-no-unknown */
+
+      height: calc(100% - $base-menu-logo-height);
     }
   }
 
   .left-container {
     position: absolute;
     left: $base-menu-width;
-    /* stylelint-disable declaration-property-value-no-unknown */
-
     width: calc(100vw - $base-menu-width);
     height: 100vh;
     transition: all 0.3s ease-in-out;
@@ -100,18 +116,6 @@ const LayOutSettingStore = LayOutStore();
   padding: 0;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: $base-menu-logo-height;
-  overflow: hidden;
-  font-size: $base-logo-title-fontSize;
-  line-height: $base-menu-logo-height;
-  color: white;
-  background-color: #000;
-}
 /* 加过渡给侧边导航 */
 .el-aside {
   transition: width 0.25s;

@@ -20,6 +20,7 @@
             icon="Refresh"
             @click="refreshHandle"
           ></el-button>
+          <el-switch v-model="str" @click="handle">黑色</el-switch>
           <el-button
             type="link"
             circle
@@ -38,15 +39,23 @@
 </template>
 <script setup lang="ts" name="Header-com">
 import { LayOutStore } from "@/stores";
-import { nextTick } from "vue";
+import { nextTick, ref } from "vue";
 import userSeetting from "./userSeetting.vue";
-
+const str = ref(false);
 //获取layout配置相关的仓库
 const LayOutSettingStore = LayOutStore();
 //点击图标的方法
 const changeIcon = () => {
   //图标进行切换
   LayOutSettingStore.fold = !LayOutSettingStore.fold;
+};
+const handle = () => {
+  //body加个dark类名
+  if (str.value) {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+  }
 };
 // 刷新页面
 const refreshHandle = () => {
@@ -74,6 +83,8 @@ const fullScreen = () => {
 </script>
 <style lang="scss" scoped>
 .header__container {
+  /* stylelint-disable declaration-property-value-no-unknown */
+
   width: calc(100vw - $base-menu-width);
 }
 
