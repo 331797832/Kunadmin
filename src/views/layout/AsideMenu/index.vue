@@ -7,9 +7,13 @@
     >
       <!-- logo图标 -->
       <div class="logo" v-if="!LayOutSettingStore.fold">
-        <svg-icon name="element" style="width: 40%; height: 100px" />
+        <img
+          src="../../../assets/images/logoPro.png"
+          class="w-[95%] h-[100%]"
+          alt=""
+        />
       </div>
-      <div v-else class="logo">E</div>
+      <div v-else class="logo">K</div>
       <!-- 侧边菜单栏 -->
       <el-menu
         class="aside-menu"

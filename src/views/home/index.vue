@@ -5,8 +5,8 @@
       <el-col :span="6" v-for="item in cardList" :key="item.title">
         <el-card shadow="hover" class="data-card">
           <div class="card-header">
-            <el-icon class="card-icon" :class="item.color">
-              <component :is="item.icon" />
+            <el-icon class="card-icon">
+              <component :is="item.icon"></component>
             </el-icon>
             <div class="card-info">
               <div class="card-title">{{ item.title }}</div>
@@ -15,14 +15,10 @@
           </div>
         </el-card>
       </el-col>
-    </el-row>
-
-    <!-- 中部图表区域 -->
-    <el-row :gutter="20" class="mt-4">
       <el-col :span="16">
-        <el-card shadow="hover">
+        <el-card shadow="hover" class="mt-4">
           <template #header>
-            <div class="card-header-title">
+            <div class="flex items-center justify-between">
               <span>订单趋势</span>
               <el-radio-group v-model="chartTimeRange" size="small">
                 <el-radio-button label="week">本周</el-radio-button>
@@ -32,49 +28,34 @@
             </div>
           </template>
           <div class="h-[100%] w-[100%]">
-            <div style=" width: 100%;height: 340px" ref="radarRef"></div>
+            <div style="width: 100%; height: 340px" ref="radarRef"></div>
           </div>
         </el-card>
       </el-col>
       <el-col :span="8">
-        <el-card shadow="hover">
+        <el-card shadow="hover" class="mt-4">
           <template #header>
-            <div class="card-header-title">
-              <span>待办事项</span>
-              <el-tag size="small" type="warning">5个任务</el-tag>
+            <div class="flex items-center justify-between">
+              <span>代办事项</span>
+              <el-tag size="small" type="warning"
+                >{{ testdata.length }}个事项</el-tag
+              >
             </div>
           </template>
-          <el-scrollbar height="300px">
-            <div v-for="i in 5" :key="i" class="todo-item">
-              <el-checkbox>待办任务 {{ i }}</el-checkbox>
-              <span class="todo-time">2024-01-{{ i }}</span>
+          <div class="h-[100%] w-[100%]">
+            <div
+              v-for="(item, index) in testdata"
+              :key="item.id || index"
+              class="flex items-center justify-between"
+            >
+              <!-- <el-checkbox :label="item.name" v-model="item.ischecked" /> -->
+              <input type="checkbox" :name="item.name" :id="item.id" />
+              <span class="text-gray-500 text-sm">{{ item.date }}</span>
             </div>
-          </el-scrollbar>
+          </div>
         </el-card>
       </el-col>
     </el-row>
-
-    <!-- 底部表格 -->
-    <el-card shadow="hover" class="mt-4">
-      <template #header>
-        <div class="card-header-title">
-          <span>最新订单</span>
-          <el-button type="primary" link>查看更多</el-button>
-        </div>
-      </template>
-      <el-table :data="tableData" style="width: 100%" border stripe>
-        <el-table-column prop="date" label="日期" />
-        <el-table-column prop="name" label="订单名称" />
-        <el-table-column prop="status" label="状态">
-          <template #default="{ row }">
-            <el-tag :type="row.status === '已完成' ? 'success' : 'warning'">
-              {{ row.status }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="amount" label="金额" />
-      </el-table>
-    </el-card>
   </div>
 </template>
 
@@ -82,12 +63,14 @@
 import { ref } from "vue";
 import { useEcharts } from "@/hooks/echarts";
 import { lineOptions } from "./data";
-
+// import { ElCheckbox } from "element-plus";
 // 第一个图表
 const { domRef: radarRef } = useEcharts(() => lineOptions as any, {
   onRender() {},
 });
-
+// 图表时间范围
+const chartTimeRange = ref("week");
+// const checked1 = ref(false);
 // 顶部卡片数据
 const cardList = [
   {
@@ -115,82 +98,61 @@ const cardList = [
     color: "text-purple-500",
   },
 ];
-
-// 图表时间范围
-const chartTimeRange = ref("week");
-
-// 表格数据
-const tableData = [
+const testdata = ref<any[]>([
   {
-    date: "2024-01-01",
-    name: "订单A",
+    id: 1,
+    date: "2025-01-01",
+    name: "订单1",
     status: "已完成",
-    amount: "￥1,234",
+    amount: "￥100",
+    ischecked: false,
   },
   {
-    date: "2024-01-02",
-    name: "订单B",
-    status: "处理中",
-    amount: "￥2,345",
+    id: 2,
+    date: "2025-01-02",
+    name: "订单2",
+    status: "进行中",
+    amount: "￥200",
+    ischecked: false,
   },
   {
-    date: "2024-01-03",
-    name: "订单C",
-    status: "已完成",
-    amount: "￥3,456",
+    id: 3,
+    date: "2025-01-03",
+    name: "订单2",
+    status: "进行中",
+    amount: "￥200",
+    ischecked: false,
   },
-];
+  {
+    id: 4,
+    date: "2025-01-04",
+    name: "订单2",
+    status: "进行中",
+    amount: "￥200",
+    ischecked: true,
+  },
+  {
+    id: 5,
+    date: "2025-01-05",
+    name: "订单2",
+    status: "进行中",
+    amount: "￥200",
+    ischecked: false,
+  },
+  {
+    id: 6,
+    date: "2025-01-06",
+    name: "订单2",
+    status: "进行中",
+    amount: "￥200",
+    ischecked: false,
+  },
+]);
 </script>
-
-<style scoped>
-.data-card {
-  .card-header {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-  }
-
-  .card-icon {
-    padding: 8px;
-    font-size: 48px;
-    background: var(--el-fill-color-light);
-    border-radius: 8px;
-  }
-
-  .card-info {
-    .card-title {
-      font-size: 14px;
-      color: var(--el-text-color-secondary);
-    }
-
-    .card-value {
-      margin-top: 4px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-  }
-}
-
-.card-header-title {
+<style lang="scss" scoped>
+.card-header {
   display: flex;
+  gap: 16px;
   align-items: center;
-  justify-content: space-between;
-}
-
-.todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--el-border-color-lighter);
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  .todo-time {
-    font-size: 13px;
-    color: var(--el-text-color-secondary);
-  }
 }
 </style>

@@ -176,7 +176,6 @@ const formcloumns = computed(() => [
 const formReffff = ref();
 const confirmClick = async () => {
   await formReffff.value.validate();
-  console.log(formModel.value);
   if (formModel.value.id) {
     const { name, password, id, username } = formModel.value;
     await updatareguser({ id, name, username, password });

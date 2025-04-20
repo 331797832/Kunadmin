@@ -38,6 +38,10 @@ export default defineConfig(({ command, mode }) => {
       }),
       Components({
         resolvers: [ElementPlusResolver()],
+        // 自动导入 `./components` 下的组件
+        dirs: ["src/components"],
+        // 生成类型声明
+        dts: "src/components.d.ts",
       }),
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],

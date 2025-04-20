@@ -5,16 +5,28 @@
 </template>
 <script setup lang="ts" name="SvgIcon">
 import { defineProps } from "vue";
-interface SvgIconProps {
-  name: string;
-  color: string;
-  w: string;
-  h: string;
-}
-withDefaults(defineProps<SvgIconProps>(), {
-  name: "",
-  color: "white",
-  w: "16px",
-  h: "16px",
+// interface SvgIconProps {
+//   name: string;
+//   color: string;
+//   w: string;
+//   h: string;
+// }
+defineProps({
+  name: {
+    type: String,
+    default: "",
+  },
+  color: {
+    type: String,
+    default: "white",
+  },
+  w: {
+    type: String,
+    default: "16px",
+  },
+  h: {
+    type: String,
+    default: "16px",
+  },
 });
 </script>

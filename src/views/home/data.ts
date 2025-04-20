@@ -4,7 +4,7 @@ import type {
   SingleAxisComponentOption,
   TitleComponentOption,
 } from "echarts/components";
-import type { ECOption } from "@/hook/common/echarts";
+import type { ECOption } from "@/hooks/echarts";
 
 export const pieOptions: ECOption = {
   legend: {},

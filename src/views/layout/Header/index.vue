@@ -14,20 +14,20 @@
         <div class="flex-grow" />
         <!-- 操作 -->
         <div>
+          <el-button circle icon="Refresh" @click="refreshHandle"></el-button>
           <el-button
-            type="link"
-            circle
-            icon="Refresh"
-            @click="refreshHandle"
-          ></el-button>
-          <el-switch v-model="dark" @click="toggleDark(dark)">黑色</el-switch>
-          <el-button
-            type="link"
+            class="mr-2"
             circle
             icon="FullScreen"
             @click="fullScreen"
           ></el-button>
-          <el-button type="link" circle icon="Setting"></el-button>
+          <!-- <el-button type="link" circle icon="Setting"></el-button> --><el-switch
+            v-model="dark"
+            active-text="洁白"
+            inactive-text="暗黑"
+            @click="toggleDark(dark)"
+            >黑色</el-switch
+          >
         </div>
       </el-col>
       <el-col :span="4" class="flex items-center">

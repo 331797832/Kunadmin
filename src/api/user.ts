@@ -17,6 +17,7 @@ export interface addFormData {
   username: string;
   name: string;
   password: string;
+  id?: number;
 }
 export const userlogin = (data: loginFormData) => {
   return request.get("/admin/acl/index/login", {

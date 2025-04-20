@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p type-check \"build-only {@}\" -- --base=/myweb2",
     "preview": "vite preview",
     "build:test": "vue-tsc && vite build --mode test",
     "build:pro": "vue-tsc && vite build --mode production",
@@ -17,7 +17,9 @@
     "lint:eslint": "eslint src/**/*.{ts,vue} --cache --fix",
     "lint:style": "stylelint src/**/*.{css,scss,vue} --cache --fix",
     "lint:lint-staged": "lint-staged -c ./.husky/lint-staged.config.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
@@ -26,6 +28,7 @@
     "echarts": "^5.6.0",
     "element-plus": "^2.8.6",
     "eslint-config-prettier": "^10.1.2",
+    "gh-pages": "^6.3.0",
     "pinia": "^2.2.4",
     "stylelint-config-recommended-vue": "^1.5.0",
     "vue": "^3.5.12",

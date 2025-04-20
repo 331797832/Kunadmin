@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <el-form :model="formModel" :rules="rules" ref="formrefdom">
       <template v-for="item in formcloumns" :key="item.label">
@@ -50,4 +50,4 @@ defineExpose({
     return formrefdom.value?.validate();
   },
 });
-</script>
+</script> -->
